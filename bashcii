@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [[ "$(which toilet)" == "" ]]; then
+  echo "You need to install toilet."
+  echo "If you are using debian-based system like ubuntu, use sudo apt install toilet."
+fi
+
+if [[ "$(which fzf)" == "" ]]; then
+  echo "You need to install fzf."
+  echo "If you are using debian-based system like ubuntu, use sudo apt install fzf."
+fi
+
+cmd=$(f=$(ls /usr/share/figlet/ | sed '/-/d' | sed 's/\..*$//g') && for i in ${f[@]}; do echo $i; done)
+selected_font=$(echo $cmd | tr ' ' '\n' | fzf)
+
+read -p "Text: " text
+toilet -f $selected_font $text
