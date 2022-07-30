@@ -1,5 +1,9 @@
 # bashcii
 
+Very simple script to print text in ASCII art.
+
+Using `toilet` and `fzf`.
+
 ## Usage
 
 Clone the repository:
