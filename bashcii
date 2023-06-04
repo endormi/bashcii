@@ -1,16 +1,17 @@
 #!/bin/bash
 
-if [[ -z "$(which toilet)" ]]; then
-  echo "You need to install toilet."
-  echo "If you are using debian-based system like ubuntu, use sudo apt install toilet."
-  exit
-fi
+check_package() {
+  package=$1
 
-if [[ -z "$(which fzf)" ]]; then
-  echo "You need to install fzf."
-  echo "If you are using debian-based system like ubuntu, use sudo apt install fzf."
-  exit
-fi
+  if ! command -v "$package" &>/dev/null; then
+    echo "You need to install $package."
+    echo "If you are using a Debian-based system like Ubuntu, use sudo apt install $package."
+    exit
+  fi
+}
+
+check_package toilet
+check_package fzf
 
 cmd=$(f=$(ls /usr/share/figlet/ | sed '/-/d' | sed 's/\..*$//g') && for i in ${f[@]}; do echo $i; done)
 selected_font=$(echo $cmd | tr ' ' '\n' | fzf)
